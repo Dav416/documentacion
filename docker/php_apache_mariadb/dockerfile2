@@ -1,0 +1,3 @@
+FROM mariadb:11.2.4-jammy
+
+COPY ./backup_sql_03-07-2024 /docker-entrypoint-initdb.d

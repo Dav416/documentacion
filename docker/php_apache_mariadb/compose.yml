@@ -1,0 +1,21 @@
+version: '3'
+services:
+  phpapp:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./htdocs:/var/www/html
+  mariadb: 
+    build:
+      context: .
+      dockerfile: dockerfile2
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=1
+    command: ['mariadbd', '--sql_mode=NO_ENGINE_SUBSTITUTION', '--innodb-strict-mode=0']
