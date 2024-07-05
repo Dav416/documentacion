@@ -38,7 +38,7 @@ services:
     build: . #construye la imagen con el directorio actual
     ports: #puerto host:puerto contenedor
       - "3000:3000"
-    links: #enlace, relaciona el contenedor con otro contenedor, crea una red de contenedores
+    links: # **Esto ya no es necesario en la versión 3** Es un enlace, relaciona el contenedor con otro contenedor, crea una red de contenedores
       - name-contenedor2
   name-contenedor2: #nombre del contenedor
     image: name-image #imagen a usar
@@ -53,7 +53,7 @@ services:
       # mysql -> /var/lib/mysql #bis 
       # postgres /var/lib/postgresql/data #bis  
       # mariadb -> /var/lib/mysql #bis
-volumes: #volumenes para el almacenamiento de datos en el host y en el contenedor **Esto ya no es necesario en la versión 3**
+volumes: # **Esto ya no es necesario en la versión 3** volumenes para el almacenamiento de datos en el host y en el contenedor
   name-volume: #nombre del volumen en el host y en el contenedor
 ```
 </details>
@@ -160,7 +160,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./db:/var/lib/mysql
+      - ./db_mariadb_container:/var/lib/mysql
     environment:
       - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=1
     command: ['mariadbd', '--sql_mode=NO_ENGINE_SUBSTITUTION', '--innodb-strict-mode=0']
@@ -168,7 +168,7 @@ services:
 
 ## dockerfile
 ```dockerfile
-FROM php:8.2.4-apachet
+FROM php:8.2.4-apache
 
 RUN docker-php-ext-install pdo pdo_mysql
 RUN docker-php-ext-install mysqli
@@ -181,6 +181,6 @@ RUN a2enmod headers
 ```dockerfile
 FROM mariadb:11.2.4-jammy
 
-COPY ./backup_sql_03-07-2024 /docker-entrypoint-initdb.d (migración de datos desde una carpeta con los archivos sql a el directorio en el contenedor de mariadb una vez que se inicie el contenedor)
+COPY ./migrations /docker-entrypoint-initdb.d (migración de datos desde una carpeta con los archivos sql a el directorio en el contenedor de mariadb una vez que se inicie el contenedor)
 ```
 </details>
