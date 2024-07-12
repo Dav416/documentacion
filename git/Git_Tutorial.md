@@ -108,10 +108,11 @@ git reset nombre_archivo (Devuelve el archivo de staged a unstaged)
 
 git commit -am “mensaje” (funciona solo con los archivos que ya se les ha hecho add (para no tener que escribir los comandos por separado))
 
-
 git reset --soft HEAD~1 (devolver el último commit manteniendo los cambios)
 
 git reset --hard HEAD~1 (devolver el último commit eliminando los cambios)
+
+git revert commit_id (revertir el commit ya subido)
 
 git commit --amend -m “mensaje correcto” (cambiar el mensaje del último commit, también sirve para subir más cambios al mismo commit, sin necesidad de crear uno nuevo)
 
